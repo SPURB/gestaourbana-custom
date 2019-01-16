@@ -1,10 +1,11 @@
 # MySQL to JSON
-Backend da API do Plugi de IndexaÁ„o do Gest„o Urbana
+Backend da API do Plugi de Indexa√ß√£o do Gest√£o Urbana
 
-Criar arquivo de configuraÁ„o das vari·veis de ambiente chamado "conexao.env" com a seguinte estrutura:
+Criar arquivo de configura√ß√£o das vari√°veis de ambiente chamado "conexao.env" com a seguinte estrutura:
 
+```php
 <?php
-// conex„o com o banco de dados
+// conex√£o com o banco de dados
 define('DB_SERVER', 'servidor');
 define('DB_USERNAME', 'nome_do_usuario');
 define('DB_PASSWORD', 'senha');
@@ -13,8 +14,10 @@ define('DB_NAME', 'nome_do_banco_de_dados');
 // conectar com o banco de dados
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
-// checar conex„o
+// checar conex√£o
 if($link === false){
-    die("ERRO: N„o foi possÌvel conectar. " . mysqli_connect_error());
+    die("ERRO: N√£o foi poss√≠vel conectar. " . mysqli_connect_error());
 }
 ?>
+
+```
