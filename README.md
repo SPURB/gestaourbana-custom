@@ -1,5 +1,5 @@
 # wp mídia updates
-Lista os últimos updates de um banco genérico do wordpress. 
+Lista os últimos updates de mídias em um banco genérico do wordpress. 
 
 ## Setup
 Renomear o arquivo `conexao.env.sample` para `conexao.env` e inclua os campos da lista para realizar a conexão com o banco:
