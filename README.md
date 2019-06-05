@@ -1,5 +1,5 @@
-# wp mídia updates
-Lista os últimos updates de mídias em um banco genérico do wordpress. 
+# Gestão Urbana Custom
+Endpoints customizados do banco de dados do portal Gestão Urbana.
 
 ## Setup
 Renomear o arquivo `conexao.env.sample` para `conexao.env` e inclua os campos da lista para realizar a conexão com o banco:
@@ -13,3 +13,4 @@ define('DB_PASSWORD', 'senha');
 define('DB_NAME', 'nome_do_banco_de_dados');
 
 ```
+

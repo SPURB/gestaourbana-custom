@@ -1,29 +1,46 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
-
-// varávies de ambiente
+include 'classes/getters.php';
 require_once 'conexao.env';
 
-// conectar com o banco de dados
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
  
-// checar conexão
-if($link === false){
-    die("ERRO: Não foi possível conectar. " . mysqli_connect_error());
+if ($link === false){
+	die("ERRO: Não foi possível conectar. " . mysqli_connect_error());
 }
 
-if(isset($_GET["updates"])){
-	include 'classes/getter.php';
-	$updates = $_GET["updates"];
-	$response = new Getter($updates);
-	echo $response -> getRoute($updates);
+if (isset($_GET["media-updates"])){
+	$updates = $_GET["media-updates"];
+	$response = new Getters($updates);
+	echo $response -> getMediaPosts($updates);
 }
+
+else if(isset($_GET["noticia-comments"])){
+	$noticia = $_GET["noticia-comments"];
+	$response = new Getters($updates);
+	echo $response -> getCommentsFromNoticia($noticia);
+}
+
 else {
-	$endpoints = array(
-		"liste últimas atualizações das mídias do wordpress" => '/?updates=:Number',
-		"Exemplo. Retorna últimas três mídias" => $_SERVER['SCRIPT_URI'] . '?updates=3',
+	$documentation = array(
+		"Descrição" => "Endpoints customizados do banco de dados do portal Gestão Urbana",
+		"Repositório" => "https://github.com/spurb/gestaourbana-custom",
+		"Bugs" => "https://github.com/spurb/gestaourbana-custom/issues",
+		"Enpoints" => array(
+			array(
+				"Descrição" => "Lista das últimas atualizações das mídias do wordpress",
+				"Sintaxe" => '/?media-updates=:Number',
+				"Exemplo. Retorna últimas três mídias postadas" => $_SERVER['SCRIPT_URI'] . '?media-updates=3'
+			),
+			array(
+				"Descrição" => "Lista de comentários por notícias ou posts",
+				"Sintaxe" => '/?noticia-comments=:id',
+				"Exemplo. Retorna comentários da notícia ou post de id 919" => $_SERVER['SCRIPT_URI'] . '?noticia-comments=919',
+			)
+		)
 	);
-	echo json_encode($endpoints); 
+	echo json_encode($documentation); 
 }
+mysqli_close($link);
 ?>
