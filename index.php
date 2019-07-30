@@ -22,6 +22,12 @@ else if(isset($_GET["noticia-comments"])){
 	echo $response -> getCommentsFromNoticia($noticia);
 }
 
+else if(isset($_GET["ccid"])){
+	$noticia = $_GET["ccid"];
+	$response = new Getters($updates);
+	echo $response -> getNumberOfCommentsFromNoticia($noticia);
+}
+
 else {
 	$documentation = array(
 		"Descrição" => "Endpoints customizados do banco de dados do portal Gestão Urbana",
@@ -36,7 +42,12 @@ else {
 			array(
 				"Descrição" => "Lista de comentários por notícias ou posts",
 				"Sintaxe" => '/?noticia-comments=:id',
-				"Exemplo. Retorna comentários da notícia ou post de id 919" => $_SERVER['SCRIPT_URI'] . '?noticia-comments=919',
+				"Exemplo. Retorna comentários da notícia ou post de id 919" => $_SERVER['SCRIPT_URI'] . '?noticia-comments=919'
+			),
+			array(
+				"Descrição" => "Contagem de comentários por notícias ou posts",
+				"Sintaxe" => '/?ccid[]=:id1&ccid[]=:id2&...&ccid[]=:idN',
+				"Exemplo. Retorna número de comentários das notícias ou posts relativas a cada uma das IDs passadas na URL da request (neste caso: 919, 23023 e 27058)" => $_SERVER['SCRIPT_URI'] . '?ccid[]=919&ccid[]=23023&ccid[]=27058'
 			)
 		)
 	);

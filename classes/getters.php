@@ -73,5 +73,40 @@ class Getters {
 		return json_encode($json_array);
 
 	}
+
+	public function getNumberOfCommentsFromNoticia($id) {
+
+		$this->checkParameter($id);
+
+		$ids = $_GET['ccid'];
+		$numberofcomments = array();
+
+		foreach($ids as $thisid) {
+			$sql = "SELECT 
+				count(*),
+				comment_post_ID
+				FROM wp_comments
+				WHERE comment_approved=1 
+				AND comment_parent=0 
+				AND comment_post_ID=" . $thisid;
+
+			$result = mysqli_query($GLOBALS['link'], $sql);
+			$json_array = array();
+
+			while($row = mysqli_fetch_assoc($result)) {
+				$number = array(
+					"commentcount" => $row['count(*)'],
+					"idnoticia" => $row['comment_post_ID']
+				);
+
+				$json_array [] = $number;
+			}
+
+			array_push($numberofcomments, $json_array);
+		}
+
+		return json_encode($numberofcomments);
+
+	}
 }
 ?>
