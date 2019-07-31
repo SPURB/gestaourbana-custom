@@ -16,8 +16,8 @@ class Getters {
 		
 		while($row = mysqli_fetch_assoc($result)) {
 			$slug = $row['post_name'];
+			return utf8_encode($slug);
 		}
-		return utf8_encode($slug);
 	}
 
 	public function getMediaPosts($limit){
@@ -40,7 +40,7 @@ class Getters {
 		while($row = mysqli_fetch_assoc($result)) {
 			$json_array[] = $row;
 		} 
-		return json_encode($json_array);
+		return json_encode($json_array, JSON_NUMERIC_CHECK);
 	}
 
 	public function getCommentsFromNoticia($id) {
@@ -52,7 +52,7 @@ class Getters {
 			comment_date,
 			comment_content
 			FROM wp_comments
-			WHERE comment_approved=1 
+			WHERE comment_approved=1
 			AND comment_parent=0 
 			AND comment_post_ID=" . $id;
 
@@ -72,6 +72,41 @@ class Getters {
 
 		return json_encode($json_array);
 
+	}
+
+	public function getNumberOfCommentsFromNoticia($ids) {
+
+		$intsIds = explode(',', $ids);
+		$numberofcomments = array();
+
+		foreach($intsIds as $thisid) {
+
+			$this->checkParameter($thisid);
+
+			$sql = "SELECT
+				count(*),
+				comment_post_ID
+				FROM wp_comments
+				WHERE comment_approved=1
+				AND comment_parent=0 
+				AND comment_post_ID=" . $thisid;
+
+			$result = mysqli_query($GLOBALS['link'], $sql);
+			$json_array = array();
+	
+			while($row = mysqli_fetch_assoc($result)) {
+
+				$haveComments =  $row['count(*)'] > 0 ? true : false;
+				if ($haveComments){
+					$json_array =  array(
+						"commentcount" => $row['count(*)'],
+						"idnoticia" => $row['comment_post_ID']
+					);
+				}
+			}
+			if (count($json_array)) array_push($numberofcomments, $json_array);
+		}
+		return json_encode($numberofcomments, JSON_NUMERIC_CHECK);
 	}
 }
 ?>

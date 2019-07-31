@@ -18,8 +18,14 @@ if (isset($_GET["media-updates"])){
 
 else if(isset($_GET["noticia-comments"])){
 	$noticia = $_GET["noticia-comments"];
-	$response = new Getters($updates);
+	$response = new Getters($noticia);
 	echo $response -> getCommentsFromNoticia($noticia);
+}
+
+else if(isset($_GET["noticias-comments-counter"])){
+	$ids = $_GET["noticias-comments-counter"];
+	$response = new Getters($ids);
+	echo $response -> getNumberOfCommentsFromNoticia($ids);
 }
 
 else {
@@ -31,12 +37,17 @@ else {
 			array(
 				"Descrição" => "Lista das últimas atualizações das mídias do wordpress",
 				"Sintaxe" => '/?media-updates=:Number',
-				"Exemplo. Retorna últimas três mídias postadas" => $_SERVER['SCRIPT_URI'] . '?media-updates=3'
+				"Exemplo. Retorna últimas três mídias postadas" => '/?media-updates=3'
 			),
 			array(
 				"Descrição" => "Lista de comentários por notícias ou posts",
 				"Sintaxe" => '/?noticia-comments=:id',
-				"Exemplo. Retorna comentários da notícia ou post de id 919" => $_SERVER['SCRIPT_URI'] . '?noticia-comments=919',
+				"Exemplo. Retorna comentários da notícia ou post de id 919" => '/?noticia-comments=919'
+			),
+			array(
+				"Descrição" => "Contagem de comentários por notícias",
+				"Sintaxe" => '/?noticias-comments-counter=id1,id2,id3,...,idN',
+				"Exemplo. Retorna número de comentários das notícias ou posts relativas a cada uma das IDs passadas na URL da request (neste caso: 919, 23023 e 27058)" => '/?noticias-comments-counter=919,23023,27058'
 			)
 		)
 	);
