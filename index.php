@@ -18,14 +18,14 @@ if (isset($_GET["media-updates"])){
 
 else if(isset($_GET["noticia-comments"])){
 	$noticia = $_GET["noticia-comments"];
-	$response = new Getters($updates);
+	$response = new Getters($noticia);
 	echo $response -> getCommentsFromNoticia($noticia);
 }
 
-else if(isset($_GET["ccid"])){
-	$noticia = $_GET["ccid"];
-	$response = new Getters($updates);
-	echo $response -> getNumberOfCommentsFromNoticia($noticia);
+else if(isset($_GET["noticias-comments-counter"])){
+	$ids = $_GET["noticias-comments-counter"];
+	$response = new Getters($ids);
+	echo $response -> getNumberOfCommentsFromNoticia($ids);
 }
 
 else {
@@ -37,17 +37,17 @@ else {
 			array(
 				"Descrição" => "Lista das últimas atualizações das mídias do wordpress",
 				"Sintaxe" => '/?media-updates=:Number',
-				"Exemplo. Retorna últimas três mídias postadas" => $_SERVER['SCRIPT_URI'] . '?media-updates=3'
+				"Exemplo. Retorna últimas três mídias postadas" => '/?media-updates=3'
 			),
 			array(
 				"Descrição" => "Lista de comentários por notícias ou posts",
 				"Sintaxe" => '/?noticia-comments=:id',
-				"Exemplo. Retorna comentários da notícia ou post de id 919" => $_SERVER['SCRIPT_URI'] . '?noticia-comments=919'
+				"Exemplo. Retorna comentários da notícia ou post de id 919" => '/?noticia-comments=919'
 			),
 			array(
 				"Descrição" => "Contagem de comentários por notícias ou posts",
 				"Sintaxe" => '/?ccid[]=:id1&ccid[]=:id2&...&ccid[]=:idN',
-				"Exemplo. Retorna número de comentários das notícias ou posts relativas a cada uma das IDs passadas na URL da request (neste caso: 919, 23023 e 27058)" => $_SERVER['SCRIPT_URI'] . '?ccid[]=919&ccid[]=23023&ccid[]=27058'
+				"Exemplo. Retorna número de comentários das notícias ou posts relativas a cada uma das IDs passadas na URL da request (neste caso: 919, 23023 e 27058)" => '/?ccid[]=919&ccid[]=23023&ccid[]=27058'
 			)
 		)
 	);
