@@ -16,8 +16,8 @@ class Getters {
 		
 		while($row = mysqli_fetch_assoc($result)) {
 			$slug = $row['post_name'];
+			return utf8_encode($slug);
 		}
-		return utf8_encode($slug);
 	}
 
 	public function getMediaPosts($limit){
@@ -40,7 +40,7 @@ class Getters {
 		while($row = mysqli_fetch_assoc($result)) {
 			$json_array[] = $row;
 		} 
-		return json_encode($json_array);
+		return json_encode($json_array, JSON_NUMERIC_CHECK);
 	}
 
 	public function getCommentsFromNoticia($id) {
@@ -53,7 +53,7 @@ class Getters {
 			comment_content
 			FROM wp_comments
 			WHERE comment_approved=1
-			AND comment_parent=0
+			AND comment_parent=0 
 			AND comment_post_ID=" . $id;
 
 		$result = mysqli_query($GLOBALS['link'], $sql);
