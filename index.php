@@ -45,9 +45,9 @@ else {
 				"Exemplo. Retorna comentários da notícia ou post de id 919" => '/?noticia-comments=919'
 			),
 			array(
-				"Descrição" => "Contagem de comentários por notícias ou posts",
-				"Sintaxe" => '/?ccid[]=:id1&ccid[]=:id2&...&ccid[]=:idN',
-				"Exemplo. Retorna número de comentários das notícias ou posts relativas a cada uma das IDs passadas na URL da request (neste caso: 919, 23023 e 27058)" => '/?ccid[]=919&ccid[]=23023&ccid[]=27058'
+				"Descrição" => "Contagem de comentários por notícias",
+				"Sintaxe" => '/?noticias-comments-counter=id1,id2,id3,...,idN',
+				"Exemplo. Retorna número de comentários das notícias ou posts relativas a cada uma das IDs passadas na URL da request (neste caso: 919, 23023 e 27058)" => '/?noticias-comments-counter=919,23023,27058'
 			)
 		)
 	);
